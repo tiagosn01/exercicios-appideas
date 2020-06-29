@@ -4,89 +4,144 @@ import { Container, Header, Content, Calculadora, Resultado, } from './styles/ca
 import GlobalStyle from './styles/global'
 
 
-
 function App() {
-  const [input, setInput] = useState([])
-  const [oldInput, setOldInput] = useState([])
+  const [input, setInput] = useState('')
 
-  const [value1, setValue1] = useState()
-  const [value2, setValue2] = useState()
-  const [result, setResult] = useState()
-  const [operator, setOperator] = useState()
-  const [pastResult, setPastResult] = useState([])
+  const [value, setValue] = useState('')
+  const [accumulator, setAccumulator] = useState(0)
+  const [operator, setOperator] = useState('')
+ 
 
   function soma() {
-    const value = input.reduce((total, element) => total + element)
-
-    setValue1(value)
-    setOldInput([...input, " + "])
-    setInput([])
+    if (input.length > 8) {
+      return (
+      setInput(''),
+      setValue(''),
+      setAccumulator(0),
+      alert('Somente números abaixo de 8 digitos.')
+      )     
+    }
     setOperator(1)
+    setAccumulator(accumulator + parseInt(input))
 
+    setValue(value + input + ' + ')
+    setInput('')
 
   }
 
   function subtracao() {
-    const value = input.reduce((total, element) => total + element)
+    if (input.length > 8) {
+      return (
+      setInput(''),
+      setValue(''),
+      setAccumulator(0),
+      alert('Somente números abaixo de 8 digitos.')
+      )     
+    }
 
-    setValue1(value)
-    setOldInput([...input, " - "])
-    setInput([])
-    setOperator(2)
+    setOperator(2)  
+   
+    setAccumulator(accumulator - parseInt(input))
+    console.log(accumulator)
+    if (accumulator === 0){
+      setAccumulator(parseInt(input))
+    }
+
+    setValue(value + input + " - ")
+    setInput('')
+    
+    
   }
 
   function multiplicacao() {
-    const value = input.reduce((total, element) => total + element)
+    if (input.length > 8) {
+      return (
+      setInput(''),
+      setValue(''),
+      setAccumulator(0),
+      alert('Somente números abaixo de 8 digitos.')
+      )     
+    }
 
-    setValue1(value)
-    setOldInput([...input, " x "])
-    setInput([])
+    setAccumulator(accumulator * parseInt(input))
+    console.log(accumulator)
+    if (accumulator === 0){
+      setAccumulator(parseInt(input))
+    }
+
+    setValue(value + input + " x ")
+    setInput('')
     setOperator(3)
   }
 
 
   function divisao() {
-    const value = input.reduce((total, element) => total + element)
+    if (input.length > 8) {
+      return (
+      setInput(''),
+      setValue(''),
+      setAccumulator(0),
+      alert('Somente números abaixo de 8 digitos.')
+      )     
+    }
 
-    setValue1(value)
-    setOldInput([...input, " / "])
-    setInput([])
+    setAccumulator(accumulator / parseInt(input))
+    if (accumulator === 0){
+      setAccumulator(parseInt(input))
+    }
+
+    setValue(value + input + " / ")
+    setInput('')
     setOperator(4)
   }
 
 
-
-
+  function limpa() {
+    setInput('');
+    setValue('');
+    setAccumulator(0);
+  }
 
 
   function Results() {
-
-    const value = input.reduce((total, element) => total + element)
-    setValue2(value)
-
+    if (!accumulator) {
+      return setAccumulator(0)
+    }
 
     switch (operator) {
       case 1:
-        setResult(parseInt(value1) + parseInt(value2))
-        setPastResult([...pastResult, oldInput, input, " + "])
+        setAccumulator(accumulator + parseInt(input))
+        setValue(value + input)
+        setInput('')
+        setOperator('')
         break;
 
       case 2:
-        setResult(parseInt(value1) - parseInt(value2))
+        setAccumulator(accumulator - parseInt(input))
+        setValue(value + input)
+        setInput('')
+        setOperator('')
         break;
 
       case 3:
-        setResult(parseInt(value1) * parseInt(value2))
+        setAccumulator(accumulator * parseInt(input))
+        setValue(value + input)
+        setInput('')
+        setOperator('')
+        break;
+
+      case 4:
+        setAccumulator(accumulator / parseInt(input))
+        setValue(value + input)
+        setInput('')
+        setOperator('')
         break;
 
       default:
-        setResult(parseInt(value1) / parseInt(value2))
+        setAccumulator(0)
         break;
     }
-
-   
   }
-
 
 
   return (
@@ -94,42 +149,52 @@ function App() {
       <Container>
         <Header>
           <h1>Calculadora</h1>
-          <h1>Resultado</h1>
         </Header>
 
         <Content>
           <Calculadora>
-            <div>
+            <div>              
 
-              <button type="button" onClick={(e) => setInput([...input, "0"])}>0</button>
-              <button type="button" onClick={(e) => setInput([...input, "1"])}>1</button>
-              <button type="button" onClick={(e) => setInput([...input, "2"])}>2</button>
-              <button type="button" onClick={(e) => setInput([...input, "3"])}>3</button>
-              <button type="button" onClick={(e) => setInput([...input, "4"])}>4</button>
-              <button type="button" onClick={(e) => setInput([...input, "5"])}>5</button>
-              <button type="button" onClick={(e) => setInput([...input, "6"])}>6</button>
-              <button type="button" onClick={(e) => setInput([...input, "7"])}>7</button>
-              <button type="button" onClick={(e) => setInput([...input, "8"])}>8</button>
-              <button type="button" onClick={(e) => setInput([...input, "9"])}>9</button>
-              <button type="button" onClick={(e) => soma()}>+</button>
-              <button type="button" onClick={(e) => subtracao()}>-</button>
-              <button type="button" onClick={(e) => multiplicacao()}>x</button>
-              <button type="button" onClick={(e) => divisao()}>/</button>
-              <button type="button" onClick={(e) => ((setInput(""), setOldInput(""), setResult("")))} >C</button>
-              <button type="button">AC</button>
+              <button type="button" onClick={() => setInput(input + "7")}>7</button>
+              <button type="button" onClick={() => setInput(input + "8")}>8</button>
+              <button type="button" onClick={() => setInput(input + "9")}>9</button>
+              <button type="button" style={{background: '#FF9900'}} value="/" onClick={() => divisao()}>/</button>
+
+              <button type="button" onClick={() => setInput(input + "4")}>4</button>
+              <button type="button" onClick={() => setInput(input + "5")}>5</button>
+              <button type="button" onClick={() => setInput(input + "6")}>6</button>
+              <button type="button" style={{background: '#FF9900'}} value="x" onClick={() => multiplicacao()}>x</button>
+
+              <button type="button" onClick={() => setInput(input + "1")}>1</button>
+              <button type="button" onClick={() => setInput(input + "2")}>2</button>
+              <button type="button" onClick={() => setInput(input + "3")}>3</button>
+              <button type="button" style={{background: '#FF9900'}} value="-" onClick={() => subtracao()}>-</button>
+
+              <button type="button" onClick={() => setInput(input + "0")}>0</button>            
+              
+              <button type="button" style={{background: '#FF9900'}} onClick={() => (setInput(''))} >C</button>
+              <button type="button" style={{background: '#FF9900'}} confirma onClick={() => limpa()}>AC</button>              
+              
+              <button type="button" style={{background: '#FF9900'}} value="+" onClick={() => soma()}>+</button>
+              
+              
 
             </div>
-            <button type="button" onClick={Results}>=</button>
+            <button type="button" onClick={Results} >=</button>
           </Calculadora>
 
           <h2>=</h2>
 
           <Resultado>
-            {pastResult} <br/>
-            {oldInput} {input}
-            <br />
-            <br />
-            {result}
+            <h1>Resultado:</h1>
+            <div>
+              {input} <br /> <br />
+              {value} {input}
+              <br />
+              <br />
+              <br />
+            = {accumulator}
+            </div>
 
           </Resultado>
         </Content>
