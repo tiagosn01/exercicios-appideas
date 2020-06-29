@@ -1,0 +1,75 @@
+body {
+  background-color: rgb(70, 66, 66) ;
+}
+
+ul {
+  text-align: center;
+  border-bottom: 3px solid #222 ;
+}
+
+ li {
+  position: relative;
+  list-style: none;
+  margin: 0 15px;
+  border-radius: 50%;
+  width: 20px;
+  height: 35px;
+  top: 42px;
+  display: inline-block;
+  background: rgb(71, 21, 21);
+  --cor-red: #db5050;
+  --cor-blue: rgb(59, 86, 204);
+  --cor-green: rgb(107, 201, 78);
+  animation: red-flash 0.9s alternate infinite ease-in-out;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  margin: 50px;
+  border-radius: 10px;
+  border: none;
+  
+}
+
+ li:nth-child(3n+1) {
+  animation-name: blue-flash;
+  animation-duration: 1.2s;
+  background: rgb(11, 9, 41);
+}
+
+ li:nth-child(3n+2) {
+  animation-name: green-flash;
+  animation-duration: 1.4s;
+  background: rgb(13, 58, 7);
+}
+
+@keyframes red-flash {
+  0%, 100% {
+    background: rgb(71, 21, 21);
+    filter: drop-shadow(0 0 0 var(--cor-red));
+  } 50% {
+    background: rgb(243, 3, 3);
+    filter: drop-shadow(0 0 15px var(--cor-red));
+  }
+}
+
+@keyframes blue-flash {
+  0%, 100% {
+    background: rgb(11, 9, 41);
+    filter: drop-shadow(0 0 0 var(--cor-blue));
+  } 50% {
+    background: rgb(32, 80, 240);
+    filter: drop-shadow(0 0 15px var(--cor-blue));
+  }
+}
+
+@keyframes green-flash {
+  0%, 100% {
+    background: rgb(13, 58, 7);
+    filter: drop-shadow(0 0 0 var(--cor-green));
+  } 50% {
+    background: rgb(39, 156, 23);
+    filter: drop-shadow(0 0 15px var(--cor-green));
+  }
+}
